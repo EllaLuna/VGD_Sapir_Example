@@ -1,81 +1,81 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 500f;
-
     [SerializeField] private float jumpForce = 8.0f;
 
-    private bool isGrounded;
-    private Rigidbody2D rigidBody;
+    private bool isGrounded = true;
+    private Rigidbody2D rb;
     private Animator animator;
-    private float deltaX;
-    private Vector2 movement;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        rigidBody = GetComponent<Rigidbody2D>();
-        if (rigidBody == null)
-        {
-            Debug.LogError($"Failed to start. {rigidBody.GetType()} not found!");
-        }
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        if (animator == null || !animator.isActiveAndEnabled)
+
+        if (rb == null)
         {
-            Debug.LogError($"Failed to start. {animator.GetType()} not found!");
+            Debug.LogError("Rigidbody2D not found on Player!");
         }
-        isGrounded = true;
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator not found on Player!");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            isGrounded = false;
-            rigidBody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetBool("isJumping", true);
-        }
+        HandleJump();
     }
 
     private void FixedUpdate()
     {
-        deltaX = Input.GetAxis("Horizontal");
+        HandleMovement();
+    }
 
-        movement = new Vector2(deltaX * speed * Time.deltaTime, rigidBody.velocity.y);
+    private void HandleMovement()
+    {
+        float horizontalInput = Input.GetAxis("Horizontal");
 
-        rigidBody.velocity = movement;
-        animator.SetFloat("moveX", Mathf.Abs(deltaX));
+        // Apply horizontal movement
+        rb.linearVelocity = new Vector2(horizontalInput * speed , rb.linearVelocity.y);
 
-        //changes the animation direction of the character
-        if (!Mathf.Approximately(deltaX, 0.0f))
+        // Update animation speed
+        animator.SetFloat("moveX", Mathf.Abs(horizontalInput));
+
+        // Flip character based on direction
+        if (!Mathf.Approximately(horizontalInput, 0f))
         {
-            transform.localScale = new Vector3(Mathf.Sign(deltaX), 1.0f, 1.0f);
+            transform.localScale = new Vector3(Mathf.Sign(horizontalInput), 1f, 1f);
+        }
+    }
+
+    private void HandleJump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetBool("isJumping", true);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Consider using tags or layers to check for valid ground
+        if (Mathf.Abs(rb.linearVelocity.y) < 0.1f)
+        {
+            isGrounded = true;
+            animator.SetBool("isJumping", false);
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        //Only for Sonic scene
-        if (SceneManager.GetActiveScene().name == "Example 1")
-        {
-            animator.SetBool("isJumping", true);
-        }
         isGrounded = false;
+        animator.SetBool("isJumping", true);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (rigidBody.velocity.y > -0.1 &&
-            rigidBody.velocity.y < 0.1)
-        {
-            animator.SetBool("isJumping", false);
-            isGrounded = true;
-        }
-    }
-
 }

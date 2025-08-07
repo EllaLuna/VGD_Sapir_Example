@@ -7,8 +7,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] PlayerController target;
     void Start()
     {
-        target = FindObjectOfType<PlayerController>();
-        if(target is null)
+        target = FindFirstObjectByType<PlayerController>();
+        if (target == null)
         {
             Debug.LogError("No target was assigned to the camera");
         }

@@ -204,7 +204,7 @@ TextureImporter:
       213: -8196906660129597259
     second: Sonic_Sprite_Sheet_96
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -221,11 +221,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -264,17 +265,20 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 1
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -287,6 +291,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -299,6 +304,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -311,6 +317,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -831,33 +838,32 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walk08: 2320262898570593176
-      Walk00: 6117048226062045440
-      Walk07: -1937151746166257312
-      Walk02: -7389003329067883490
-      Jump2: -1404384588830253608
-      Walk011: 4046950496144078145
-      Walk09: 7962996006960684148
-      Walk010: 3017239064285078855
-      Jump4: 1767090469360417735
       Idle0: 1506670206671948361
-      Walk04: 3426380700179912774
-      Idle3: -7099726756400202324
-      Jump3: -6002703144321640006
-      Jump1: 1290647904427844485
-      Jump6: 186591947796651018
-      Walk05: -5136163889109923099
-      Jump0: -6690478836998820919
-      Walk06: -3717401074502259136
-      Jump5: 7973551153619345564
       Idle1: 9216940600261462922
-      Walk01: 3200632933760050137
-      Jump7: 8427276698759668935
       Idle2: 227578327602855070
+      Idle3: -7099726756400202324
+      Jump0: -6690478836998820919
+      Jump1: 1290647904427844485
+      Jump2: -1404384588830253608
+      Jump3: -6002703144321640006
+      Jump4: 1767090469360417735
+      Jump5: 7973551153619345564
+      Jump6: 186591947796651018
+      Jump7: 8427276698759668935
+      Walk00: 6117048226062045440
+      Walk01: 3200632933760050137
+      Walk010: 3017239064285078855
+      Walk011: 4046950496144078145
+      Walk02: -7389003329067883490
       Walk03: -1775212141563615153
-  spritePackingTag: 
+      Walk04: 3426380700179912774
+      Walk05: -5136163889109923099
+      Walk06: -3717401074502259136
+      Walk07: -1937151746166257312
+      Walk08: 2320262898570593176
+      Walk09: 7962996006960684148
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
