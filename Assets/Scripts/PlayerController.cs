@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded = true;
     private Rigidbody2D rb;
     private Animator animator;
+
+    float horizontalInput;
 
     private void Start()
     {
@@ -25,10 +27,20 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Animator not found on Player!");
         }
     }
-
-    private void Update()
+    void OnMove(InputValue inputValue)
     {
-        HandleJump();
+        Vector2 direction = inputValue.Get<Vector2>();
+        horizontalInput = direction.x;
+    }
+
+    void OnJump(InputValue value)
+    {
+        if (value.isPressed && isGrounded)
+        {
+            isGrounded = false;
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetBool("isJumping", true);
+        }
     }
 
     private void FixedUpdate()
@@ -38,8 +50,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-
         // Apply horizontal movement
         rb.linearVelocity = new Vector2(horizontalInput * speed , rb.linearVelocity.y);
 
@@ -50,16 +60,6 @@ public class PlayerController : MonoBehaviour
         if (!Mathf.Approximately(horizontalInput, 0f))
         {
             transform.localScale = new Vector3(Mathf.Sign(horizontalInput), 1f, 1f);
-        }
-    }
-
-    private void HandleJump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            isGrounded = false;
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            animator.SetBool("isJumping", true);
         }
     }
 

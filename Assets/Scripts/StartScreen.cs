@@ -1,23 +1,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class StartScreen : MonoBehaviour
 {
     [SerializeField] string sceneName;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (string.IsNullOrEmpty(sceneName))
             Debug.LogError($"{nameof(sceneName)} parameter is empty");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        if (Input.anyKeyDown)
-        {
-            SceneManager.LoadScene(sceneName);
-        }
+        InputSystem.onAnyButtonPress.CallOnce(OnAnyButtonPressed);
+    }
+
+    void OnAnyButtonPressed(InputControl control)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
